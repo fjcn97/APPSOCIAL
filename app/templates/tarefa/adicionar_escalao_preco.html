@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+ 	<h1 class="text-center">{{title}}</h1>
+ 	
+	<form action="" method="post" onsubmit="return validate();">
+		<div class="form-group">
+			<label for="nome" class="label">Nome do escalão de preço (*)</label>
+			<input class = "form-control" id = "nome" name = "nome" type="text" placeholder="ATE7" maxlength="32" required>
+		</div>
+
+		<div class="form-group">
+			<label for="descricao" class="label">Descrição (*)</label>
+			<input class = "form-control" id = "descricao" name = "descricao" type="text" placeholder="Crianças até aos 7 anos (inclusive)" maxlength="64" required>
+		</div>
+	    
+	    <input type="submit" class="btn btn-raised btn-info" value="Adicionar escalão de preço">
+	</form>
+	<p> * Campo obrigatório </p>
+
+	<a href="{{ url_for('main.index') }}" class="btn btn-raised btn-info">Voltar</a>
+
+    <script type="text/javascript">
+        function validate() {
+            var nome = $("#nome").val();
+            var descricao = $("#descricao").val();
+
+            if ($.trim(nome) === '') {
+                alert("Introduza o nome.");
+                return false;
+            } else if ($.trim(descricao) === '') {
+                alert("Introduza a descrição.");
+                return false;
+            } else {
+                if (confirm("Pretende submeter?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+	</script>
+	
+{% endblock %}

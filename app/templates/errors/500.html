@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div class="text-center">
+        <h1 class="text-center">{{title}}</h1>
+        <p>O erro foi registado</p>
+        <a href="{{ url_for('main.index') }}" class="btn btn-raised btn-info">Página Inicial</a>
+    </div>
+{% endblock %}

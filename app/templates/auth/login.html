@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+  <div class="pt-4">
+    <div class="container">
+      <div class="text-center">
+        <div class="card row">
+          <div class="card-header bg-info text-white">
+            <h4 class="mr-auto mb-0 pr-3">{{title}}</h4>
+          </div>
+          <div class="card-body bg-light">
+            <form action="" method="post">
+              <div class="form-row">
+                <div class="form-group col-sm-10 offset-sm-1">
+                  <label class = "label" for="username">Username</label>
+                  <input class="form-control login" type="text" id="username" name="username">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-10 offset-sm-1">
+                  <label class = "label" for="password">Password</label>
+                  <input class="form-control login" type="password" id="password" name="password">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-info btn-raised">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

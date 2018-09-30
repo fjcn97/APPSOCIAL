@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div id="search">{% include 'search.html' %}</div>
+    <div id="info_equipa">
+        {% if current_user.nivel_de_acesso == 'Monitor' %}
+        <div class="alert alert-info bg-info text-white" role="alert"><i class="fas fa-info-circle"></i> Equipa(s): {% if user_equipas %}{% for user_equipa in user_equipas %}
+                    {{ user_equipa['equipa'] }}
+                   {% endfor %}<br>
+                   {% else %}-<br>{% endif %}
+        Categoria: {{current_user.categoria}}
+        </div>
+        {% endif %}
+    </div>
+    <br>
+    <br>
+	<h1 class="text-center">{{title}}</h1>
+	
+	{% if current_user.nivel_de_acesso == 'Administrador' %}
+
+    <div class="row">
+        <a class="btn btn-raised btn-info" href="{{ url_for('tarefa.adicionar_categoria_tarefa') }}">Adicionar categoria de tarefas</a>
+        <a class="btn btn-raised btn-info" href="{{ url_for('main.adicionar_categoria_user') }}">Adicionar categoria de utilizadores</a>
+        <a class="btn btn-raised btn-info" href="{{ url_for('tarefa.adicionar_escalao_preco') }}">Adicionar escalão de preço</a>
+    </div>
+    
+    <div class="row">
+        <a class="btn btn-raised btn-info" href="{{ url_for('tarefa.adicionar_preco') }}">Adicionar preço</a>
+        <a class="btn btn-raised btn-info" href="{{ url_for('tarefa.adicionar_tarefa') }}">Adicionar tarefa</a>
+        <a class="btn btn-raised btn-info" href="{{ url_for('utente.adicionar_utente') }}">Adicionar utente</a>  
+    </div>
+    
+    <div class="row">
+        <a class="btn btn-raised btn-info" href="{{ url_for('main.adicionar_user') }}">Adicionar utilizador</a>
+        <a class="btn btn-raised btn-info" href="{{ url_for('equipa.selecionar_equipa') }}">Selecionar equipa</a>
+        <a class="btn btn-raised btn-info" href="{{ url_for('utente.selecionar_utente') }}">Selecionar utente</a>
+    </div>
+
+    <div class="row">
+        <a class="btn btn-raised btn-info" href="{{ url_for('tarefa.calendario', user_id=current_user.id) }}">Ver calendário</a>
+        <a class="btn btn-raised btn-info" href="{{ url_for('tarefa.tabela_de_precos') }}">Ver tabela de preços</a>
+        <a class="btn btn-raised btn-info" href="{{ url_for('tarefa.ver_tarefas_hoje') }}">Ver tarefas de hoje</a>
+    </div>
+
+    <div class="row">
+        <a class="btn btn-raised btn-info" href="{{ url_for('main.ver_users') }}">Ver utilizadores</a>
+    </div>
+        
+    {% else %}
+    <p>Dia: {{hoje_monitor}}</p>
+    <div class="row">
+        <a class="btn btn-raised btn-info" href="{{ url_for('utente.selecionar_utente', user_id=current_user.id) }}">Selecionar utente</a>
+        <a class="btn btn-raised btn-info" href="{{ url_for('tarefa.calendario', user_id=current_user.id) }}">Ver calendário</a>
+        <a class="btn btn-raised btn-info" href="{{ url_for('tarefa.ver_tarefas_hoje') }}">Ver tarefas de hoje</a>
+    </div>
+    {% endif %}
+    <br>
+    {% include 'mapa.html' %}
+    
+{% endblock %}

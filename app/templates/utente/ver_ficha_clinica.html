@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <br>
+    {% include 'info_utente.html' %}
+    
+    <table class="table table-hover table-bordered">
+        <tr>
+            <td>
+                <h1>{{title}}</h1>
+                <h5><b>Médico de família (ou de apoio):</b> {% if utente.med_fam_apoio %}{{ utente.med_fam_apoio }}{% else %} Sem médico {% endif %}</h5>
+                <h5><b>Alergia(s):</b> {% if utente.alergias %}{{ utente.alergias }}{% else %} Sem alergias {% endif %}</h5>
+                <h5><b>Doença(s):</b> {% if utente.doencas %}{{ utente.doencas }}{% else %} Sem doenças {% endif %}</h5>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

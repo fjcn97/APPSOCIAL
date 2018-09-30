@@ -1,0 +1,7 @@
+<td>{{ tarefa['tarifa'] }}</td>
+<td class="text-right">{{ tarefa['preco'] }}</td>
+<td>{{ tarefa['duracao_esperada'] }}</td>
+<td>{% if tarefa['start'] %} {{ tarefa['start'] }} {% else %}-{% endif %}</td>
+<td>{% if tarefa['hora_minutos_inicial'] %} {{ tarefa['hora_minutos_inicial'] }} {% else %}-{% endif %}</td>
+<td>{% if tarefa['end'] %} {{ tarefa['end'] }} {% else %}-{% endif %}</td>
+<td>{% if tarefa['hora_minutos_final'] %} {{ tarefa['hora_minutos_final'] }} {% else %}-{% endif %}</td>

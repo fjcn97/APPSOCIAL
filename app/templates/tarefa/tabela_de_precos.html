@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+	<a href="{{ url_for('main.index') }}" class="btn btn-raised btn-info">Voltar</a>
+    
+    <h1 class="text-center">{{title}}</h1>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-bordered">
+            <thead class="thead bg-info text-center">
+                <tr>
+                    <th class="text-white">Tarefa</th>
+                    <th class="text-white">Escalão</th>
+                    <th class="text-white">Preço (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for tarifa in tarifas_list_dicts %}
+                <tr>
+                    <td>{{ tarifa['nome_tarefa'] }}</td>
+                    <td>{{ tarifa['nome_escalao'] }}</td>
+                    <td class="text-right">{{ tarifa['preco'] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-raised btn-info" href="{{ url_for('main.index') }}">Voltar</a>
+{% endblock %}

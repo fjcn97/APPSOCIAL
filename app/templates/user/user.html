@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div id="search">{% include 'search.html' %}</div>
+    <div id="info_equipa">{% include 'info_equipa.html' %}</div>
+    <table class="table table-hover table-bordered">
+        <tr>
+            <td>
+            	<h1 class="text-center">{{title}}</h1>
+            </td>
+        </tr>
+    </table>
+    {% if user == current_user %}
+    <form action="" method="post">
+        <div class="form-group">
+            <label for="email" class = "label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{user.email}}">
+        </div>
+        <div class="form-group">
+            <label for="telemovel" class = "label">Telemóvel</label>
+            <input type="text" class="form-control" id="telemovel" name="telemovel" value="{{user.telemovel}}" maxlength="9" pattern=".{9}" title="Deve conter 9 números" />
+        </div>
+        <div class="form-group">
+            <label for="categoria" class = "label">Categoria</label>
+            <select class="form-control" id="categoria" name="categoria">
+                {% for categoria in form.categoria %}
+                    {{categoria}}
+                {% endfor %}
+            </select>
+        </div>
+        <input type="submit" class="btn btn-raised btn-info" value="Guardar alterações" />
+    </form>
+    {% endif %}
+
+    <script type="text/javascript">    
+        $("#telemovel").keyup(function() {
+            $("#telemovel").val(this.value.match(/[0-9]*/));
+        });
+	</script>
+{% endblock %}

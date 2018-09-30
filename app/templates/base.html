@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+    <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        {% if title %}<title>{{title}}</title>{% endif %}
+        
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+<link href="{{ url_for('static', filename='fullcalendar/fullcalendar.min.css') }}" rel='stylesheet' />
+<link href="{{ url_for('static', filename='fullcalendar/fullcalendar.print.css') }}" rel='stylesheet' media='print' />
+
+<link href="{{ url_for('static', filename='style.css') }}" rel='stylesheet' />
+
+<script src="{{ url_for('static', filename='fullcalendar/lib/moment.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='fullcalendar/fullcalendar.min.js') }}"></script>
+<script src="{{ url_for('static', filename='fullcalendar/locale-all.js') }}"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+</head>
+
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="{{ url_for('main.index') }}">APPSOCIAL365</a>
+          <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.index') }}">Página Inicial
+                </a>
+              </li>
+            
+            	{% if current_user.is_anonymous %}
+            	<li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>
+            	{% else %}
+            	<li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.user', id=current_user.id) }}" target="_blank">Perfil</a>
+              </li>
+            	<li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth.logout') }}" onClick="return confirm('Tem a certeza de que pretende terminar sessão?');">Logout</a>
+              </li>
+          	{% endif %}
+            </ul>
+          </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+   <div class="container">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+      {% for message in messages %}
+      <div role="alert" class = "alert alert-warning bg-warning text-white"><i class="fas fa-exclamation-circle"></i> {{ message }}</div>
+      {% endfor %}
+  {% endif %}
+  {% endwith %}
+  {% block app_content %}
+  {% endblock %}
+  </div>
+{% endblock %}
+</html>

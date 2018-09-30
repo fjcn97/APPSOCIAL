@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1 class="text-center">{{title}}</h1>
+
+    <form action="" method="post">
+        <div class="form-group">
+            <label for="nome_escalao" class = "label">Escalão de preço (*)</label>
+            <select class="form-control" id="nome_escalao" name="nome_escalao">
+                {% for escalao in lista_escaloes %}
+                    <option>{{escalao['nome']}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="nome_tarefa" class = "label">Tarefa (*)</label>
+            <select class="form-control" id="nome_tarefa" name="nome_tarefa">
+                {% for tarefa in lista_tarefas %}
+                    <option>{{tarefa['nome']}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="preco" class = "label">Preço (€) (*)</label>
+            <input type="number" class="form-control" id="preco" name="preco" placeholder="2.3" step="any" min="0.0" required>
+        </div>
+        
+        <input type="submit" class="btn btn-raised btn-info" value="Adicionar preço" />
+    </form>
+
+    <p> * Campo obrigatório </p>
+    <a class="btn btn-info btn-raised" href="{{ url_for('main.index') }}">Voltar</a>
+{% endblock %}

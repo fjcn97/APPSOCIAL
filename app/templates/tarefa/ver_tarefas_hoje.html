@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <a class="btn btn-raised btn-info" href="{{ url_for('main.index') }}">Voltar</a>
+    
+    <h1 class="text-center">{{title}}</h1>
+    {% if current_user.nivel_de_acesso == 'Monitor' %}
+    <a class="btn btn-raised btn-info" href="{{ url_for('tarefa.lista_tarefas_hoje_pdf') }}">Descarregar lista de tarefas</a>
+    {% endif %}
+
+    {% include 'tarefa/info_tarefas.html' %}
+    
+    <a class="btn btn-raised btn-info" href="{{ url_for('main.index') }}">Voltar</a>
+{% endblock %}

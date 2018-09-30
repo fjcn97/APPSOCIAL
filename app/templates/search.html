@@ -1,0 +1,30 @@
+{% block app_content %}
+	<div class="form-group">
+        <label class = "label" for="live_search">Pesquisa utentes</label>
+        <input name = "live_search" id="live_search" type="text" class="form-control" onkeyup="liveSearch(this.value)" placeholder="Pesquise pelo nome">
+    </div> <!-- Assigns the key up event to call the liveSearch() function -->
+	<div class="container-fluid" id="results"></div> <!-- Results will be printed here -->
+	<script type="text/javascript">
+		function liveSearch(value){
+			value = value.trim(); // remove any spaces around the text
+			if(value != ""){ // don't make requests with an empty string
+				$.ajax({
+					url: "/utentes",
+					data: {searchText: value},
+					dataType: "json",
+					success: function(data){
+						var res = "";
+						// create the html with results
+						for(i in data.results) {
+							res += "<p><a href='"+data.results[i]['link']+"'>"+data.results[i]['nome']+"</a></p>";
+						}
+						$("#results").html(res);
+					}
+				});
+			}
+			else {
+				$("#results").html(""); // set the results empty in case of empty string
+			}
+		}
+	</script>
+{% endblock %}

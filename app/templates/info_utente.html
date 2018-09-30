@@ -1,0 +1,16 @@
+<table class="table table-hover table-bordered">
+    <tr>
+        <td>
+        	<h1>{{ utente.nome }}</h1>
+            <h5><b>Contacto:</b> {{ utente.telemovel }}</h5>
+            <h5><b>Familiar:</b>
+            {% if utente.nome_a_contactar and utente.num_a_contactar %}
+                {{ utente.nome_a_contactar }} / {{ utente.num_a_contactar }}
+            {% else %}
+            -
+            {% endif %}
+            </h5>
+            <h5><b>Morada:</b> {{ utente.morada }}</h5>
+        </td>
+    </tr>
+</table>

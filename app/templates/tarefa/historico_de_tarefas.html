@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    {% include 'info_utente.html' %}
+    {% if user == current_user %}
+    <a class="btn btn-raised btn-info" href="{{ url_for('utente.utente', user_id=user.id,email=utente.email) }}">Voltar</a>
+    {% endif %}
+
+    <h1 class="text-center">{{title}}</h1>
+
+    <div class="table-responsive">
+		<table class="table table-hover table-striped table-bordered">
+		    <thead class="thead bg-info text-center">
+		        <tr> 
+		            <th class="text-white">
+		                Título
+		            </th>
+		            {% include 'tarefa/colunas_tarifa_dur_inicio_fim.html' %}
+		            <th class="text-white">
+		                Grupo de tarefas
+		            </th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		    {% for tarefa in l_tarefas %}
+		        <tr>
+		            <td><strong>{{ tarefa['title'] }}</strong></td>
+		            {% include 'tarefa/colunas_dados_tarifa_dur_inicio_fim.html' %}
+		            <td>
+		                {{ tarefa['grupo_tarefas_nome'] }}
+		            </td>
+		        </tr>
+		    {% endfor %}
+		    </tbody>
+		</table>
+	</div>
+    
+    {% if user == current_user %}
+    <a class="btn btn-raised btn-info" href="{{ url_for('utente.utente', user_id=user.id,email=utente.email) }}">Voltar</a>
+    {% endif %}
+{% endblock %}

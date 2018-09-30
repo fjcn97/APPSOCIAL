@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+	<div id="search">{% include 'search.html' %}</div>
+    <div id="info_equipa">{% include 'info_equipa.html' %}</div>
+    
+ 	<h1 class="text-center">{{title}}</h1>
+
+ 	{% if user == current_user %}
+	<form action="" method="post" onsubmit="return validate();">
+		<div class="form-group">
+			<label for="nome" class="label">Nome do grupo de tarefas (*)</label>
+			<input class = "form-control" id = "nome" name = "nome" type="text" placeholder="Cuidar de mim" maxlength="40" required>
+		</div>
+
+		<div class="form-group">
+			<label for="descricao" class="label">Descrição</label>
+			<input class = "form-control" id = "descricao" name = "descricao" type="text" placeholder="Ir ao barbeiro, comprar creme..." maxlength="64">
+		</div>
+	   
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			{% for categoria, tarefas in lista_tarefas_escs_precos|groupby('categoria')|sort %}
+			<li class="nav-item">
+				<a class="nav-link bg-info text-white" id="{{categoria}}-tab" data-toggle="tab" href="#{{categoria}}" role="tab" aria-controls="{{categoria}}" aria-selected="true">{{tarefas[0].categoria_nome}}</a>
+			</li>
+			{% endfor %}
+		</ul>
+
+		<div class="tab-content" id="myTabContent">
+		{% for categoria, tarefas in lista_tarefas_escs_precos|groupby('categoria') %}
+	  		<div class="tab-pane fade" id="{{categoria}}" role="tabpanel" aria-labelledby="{{categoria}}-tab">
+  			{% for tarefa in tarefas %}
+		    	<div class="checkbox">
+			    	<label>
+			    		<input type="checkbox" id="{{tarefa['nome']}}" name="{{tarefa['nome']}}" value="{{tarefa['nome']}}" /> {{tarefa['nome']}} (€ {{ tarefa['preco'] }})
+			        </label>
+		    	</div>
+		    {% endfor %}
+		  	</div>
+	  	{% endfor %}
+		</div>
+		
+	    <br>
+	    
+	    <input type="submit" class="btn btn-raised btn-info" value="Submeter">
+	</form>
+	<p> * Campo obrigatório </p>
+
+	<a href="{{ url_for('utente.utente', user_id=user.id, email=utente.email) }}" class="btn btn-raised btn-info">Voltar</a>
+	{% endif %}
+
+    <script type="text/javascript">
+        function validate() {
+            var nome = $("#nome").val();
+            
+            if ($.trim(nome) === '') {
+                alert("Introduza o nome.");
+                return false;
+            } else {
+                if (confirm("Pretende submeter?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+	</script>
+{% endblock %}

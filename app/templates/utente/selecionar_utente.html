@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <a href="{{ url_for('main.index') }}" class="btn btn-raised btn-info">Voltar</a>
+
+    <h1 class="text-center">{{title}}</h1>
+    
+	<div class="table-responsive">
+		<table class="table table-hover table-striped table-bordered">
+		    <thead class="thead bg-info text-center">
+		        <tr>
+		            <th class="text-white">
+		                Email
+		            </th>
+		            <th class="text-white">
+		                Nome
+		            </th>
+		            <th class="text-white">
+		                Telemóvel
+		            </th>
+		            <th class="text-white">
+		                Morada
+		            </th>
+		            <th class="text-white">
+		                Escalão de Preço
+		            </th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		    {% for utente in lista_utentes %}
+		        <tr>
+		            <td><strong><a href="{{utente['link']}}" style="color:#03a9f4;">{{utente['email']}}</a></strong></td>
+		            <td>{{ utente['nome'] }}</td>
+		            <td>{{ utente['telemovel'] }}</td>
+		            <td>{{ utente['morada'] }}</td>
+		            <td>{{ utente['esc_de_preco'] }}</td>
+		        </tr>
+		    {% endfor %}
+		    </tbody>
+		</table>
+	</div>
+	
+	<a href="{{ url_for('main.index') }}" class="btn btn-raised btn-info">Voltar</a>
+	
+{% endblock %}

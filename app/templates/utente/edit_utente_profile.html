@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+	{% if user == current_user %}
+	<a href="{{ url_for('utente.utente', user_id=user.id, email=utente.email) }}" class="btn btn-raised btn-info">Voltar</a>
+	{% endif %}
+
+    <h1 class="text-center">{{title}}</h1>
+
+    {% if user == current_user %}
+    <form action="" method="post" onsubmit="return validate();">
+	    <div class="form-group">
+	        <label for="morada" class = "label">Morada (*)</label>
+	        <input type="text" class="form-control" id="morada" name="morada" value="{{utente.morada}}" maxlength="64" required>
+	    </div>
+	    <div class="form-group">
+	        <label for="telemovel" class = "label">Telemóvel (*)</label>
+	        <input type="text" class="form-control" id="telemovel" name="telemovel" value="{{utente.telemovel}}" maxlength="9" pattern=".{9}" title="Deve conter 9 números" required>
+	    </div>
+	    <div class="form-group">
+	        <label for="email" class = "label">Email (*)</label>
+	        <input type="email" class="form-control" id="email" name="email" value="{{utente.email}}" required>
+	    </div>
+	    <div class="form-group">
+	        <label for="esc_de_preco" class = "label">Escalão de preço (*)</label>
+	        <select class="form-control" id="esc_de_preco" name="esc_de_preco">
+	            {% for escalao in form.esc_de_preco %}
+	            	{{escalao}}
+	            {% endfor %}
+	        </select>
+	    </div>
+	    
+	    <fieldset class="scheduler-border">
+	        <legend class="scheduler-border">Ficha clínica</legend>
+
+	        <div class="form-group">
+	            <label for="med_fam_apoio" class = "label">Nome do médico de família (ou de apoio)</label>
+	            <input type="text" class="form-control" id="med_fam_apoio" name="med_fam_apoio" value="{{utente.med_fam_apoio}}" placeholder="Gonçalo Mendes Alves" onkeydown="Check(event);" onkeyup="Check(event);" maxlength="64">
+	        </div>
+	        <div class="form-group">
+	            <label for="alergias" class = "label">Alergia(s)</label>
+	            <input type="text" class="form-control" id="alergias" name="alergias" value="{{utente.alergias}}" placeholder="Exemplos: Tem alergia a lactose. Tem uma alergia respiratória." onkeydown="Check(event);" onkeyup="Check(event);" maxlength="64">
+	        </div>
+	        <div class="form-group">
+	            <label for="doencas" class = "label">Doença(s) [Separe por ;]</label>
+	            <input type="text" class="form-control" id="doencas" name="doencas" value="{{utente.doencas}}" placeholder="demência;bronquite" onkeydown="Check(event);" onkeyup="Check(event);" maxlength="64">
+	        </div>
+	    </fieldset>
+
+	    <div class="form-group">
+	        <label for="nome_a_contactar" class = "label">Nome de um familiar a contactar</label>
+	        <input type="text" class="form-control" id="nome_a_contactar" name="nome_a_contactar" value="{% if utente.nome_a_contactar %} {{utente.nome_a_contactar}} {% endif %}" placeholder="Ricardo Silva Dias" onkeydown="Check(event);" onkeyup="Check(event);" maxlength="64">
+	    </div>
+	    <div class="form-group">
+	        <label for="num_a_contactar" class = "label">Número do familiar</label>
+	        <input type="text" class="form-control" id="num_a_contactar" name="num_a_contactar" value="{% if utente.num_a_contactar %}{{utente.num_a_contactar}}{% endif %}" placeholder="912345678" maxlength="9" pattern=".{9}" title="Deve conter 9 números">
+	    </div>
+	    <input type="submit" class="btn btn-raised btn-info" value="Guardar alterações" />
+	</form>
+    
+    <p> * Campo obrigatório </p>
+    <a href="{{ url_for('utente.utente', user_id=user.id, email=utente.email) }}" class="btn btn-raised btn-info">Voltar</a>
+    {% endif %}
+
+    <script type="text/javascript">
+        $('#doencas').on('keypress', function(event) {
+            //Impede espaços em branco
+            if (event.which == 32) return false;
+        });
+        
+        //Impede que se insiram números no nome, no nome do médico, nas alergias, nas doenças e nome do familiar
+        function Check(event) {
+            var keyCode = (event.keyCode ? event.keyCode : event.which);
+            if (keyCode > 47 && keyCode < 58) {
+                event.preventDefault();
+            }
+        };
+        
+        $("#telemovel").keyup(function() {
+            $("#telemovel").val(this.value.match(/[0-9]*/));
+        });
+        $("#num_a_contactar").keyup(function() {
+            $("#num_a_contactar").val(this.value.match(/[0-9]*/));
+        });
+        
+        function validate() {
+            var morada = $("#morada").val();
+            var nome_a_contactar = $("#nome_a_contactar").val();
+            var num_a_contactar = $("#num_a_contactar").val();
+
+            if ($.trim(morada) === '') {
+                alert("Introduza a sua morada.");
+                return false;
+            } else if (($.trim(nome_a_contactar) !== '' && num_a_contactar === '') || ($.trim(nome_a_contactar) === '' && num_a_contactar !== '')) {
+                alert("Se introduzir um nome de uma pessoa a contactar, então deve introduzir o seu nº de telemóvel (e vice-versa).");
+                return false;
+            } else {
+                if (confirm("Pretende submeter?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+	</script>
+{% endblock %}

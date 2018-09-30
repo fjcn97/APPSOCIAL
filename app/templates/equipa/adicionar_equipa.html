@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1 class="text-center">{{title}}</h1>
+    <form action="" method="post" onsubmit="return validate();">
+    	<div class="form-group text-center">
+    		<label for="nome" class = "label">Nome</label>
+    		<input type="text" class="form-control" id="nome" name="nome" placeholder="Foreva" maxlength="30" required>
+    	</div>
+    	<input type="submit" class="btn btn-raised btn-info" value="Adicionar equipa">
+    </form>
+    
+    <a href="{{ url_for('equipa.selecionar_equipa') }}" class="btn btn-raised btn-info">Voltar</a>
+
+    <script type="text/javascript">
+        function validate() {
+            var nome = $("#nome").val();
+
+            if ($.trim(nome) === '') {
+                alert("Introduza o nome.");
+                return false;
+            } else {
+                if (confirm("Pretende submeter?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+	</script>
+{% endblock %}

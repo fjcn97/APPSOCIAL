@@ -1,0 +1,122 @@
+.alert {
+	text-align: center;
+}
+
+.login {
+	width: 100%;
+	border-radius: 5px;
+	border: 1px solid LightGray;
+}
+
+/* Este bloco todo é para o adicionar_utilizador... */
+/* The message box is shown when the user clicks on the password field */
+#message {
+    display:none;
+    position: relative;
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 0 1.4em !important;
+}
+
+#message p {
+    padding: 0 35px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+}
+
+.valid:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
+}
+/* que termina aqui!!! */
+
+.custom-file-control, .form-control, .is-focused .custom-file-control, .is-focused .form-control {
+    background-image: linear-gradient(0deg,#03a9f4 2px,rgba(0,150,136,0) 0),linear-gradient(0deg,rgba(255, 99, 71, 0) 1px,transparent 0);
+}
+
+.custom-file-control:invalid, .form-control:invalid {
+	background-image: linear-gradient(0deg,#d50000 2px,rgba(213,0,0,0) 0),linear-gradient(0deg,rgba(255, 99, 71, 0) 1px,transparent 0);
+}
+
+.custom-file-control:read-only, .form-control:read-only {
+    background-image: linear-gradient(0deg,rgba(255, 99, 71, 0) 1px,transparent 0),linear-gradient(0deg,rgba(255, 99, 71, 0) 1px,transparent 0);
+}
+
+.label {
+	color: #03a9f4; 
+}
+
+/* Para o calendário */
+.fc-month-view span.fc-title {
+	white-space: normal;
+}
+
+/* Para o calendário */
+.fc button {
+      background-color: #03a9f4;
+      background-image: none;
+      color: white;
+}
+
+/* Para o calendário */
+.fc-content{
+	text-align: center;
+}
+
+/* Para o calendário */
+.fc-view-container {
+	background-color: white;
+}
+
+/* Para o calendário */
+#erro {
+	display: none;
+}
+
+#search, #info_equipa {
+	display:inline-block;
+	width:49%;
+}
+
+#info_equipa {
+	float: right;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: solid 1px LightGray;
+    background-color: white;    
+}
+
+.btn {
+	width: 32%;
+	margin: 0 0 1% 1%;
+}
+
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 0 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+    width:inherit; /* Or auto */
+    padding:0 10px; /* To give a bit of padding on the left and right */
+    border-bottom:none;
+}

@@ -1,0 +1,32 @@
+<div class="table-responsive">
+<table class="table table-hover table-striped table-bordered">
+    <thead class="thead bg-info text-center">
+        <tr> 
+            <th class="text-white">
+                Título
+            </th>
+            {% include 'tarefa/colunas_tarifa_dur_inicio_fim.html' %}
+            <th class="text-white">
+                Grupo de tarefas
+            </th>
+            <th class="text-white">
+                Utente
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for tarefa in l_tarefas %}
+        <tr>
+            <td><strong>{{ tarefa['title'] }}</strong></td>
+            {% include 'tarefa/colunas_dados_tarifa_dur_inicio_fim.html' %}
+            <td>
+                {{ tarefa['grupo_tarefas_nome'] }}
+            </td>
+            <td>
+                {{ tarefa['utente'] }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>

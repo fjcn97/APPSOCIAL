@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+	<h1 class="text-center">{{title}}</h1>
+
+	<div class="table-responsive">
+		<table class="table table-hover table-striped table-bordered">
+		    <thead class="thead bg-info text-center">
+		        <tr>
+		            <th class="text-white">
+		                Nome
+		            </th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		    {% for equipa in lista_equipas %}
+		        <tr>
+		            <td><a href="{{equipa['link']}}" style="color:#03a9f4;">{{equipa['nome']}}</a></td>
+		        </tr>
+		    {% endfor %}
+		    </tbody>
+		</table>
+	</div>
+
+	<a href="{{ url_for('equipa.adicionar_equipa') }}" class="btn btn-raised btn-info">Adicionar equipa</a>
+	<br>
+	<br>
+	<a href="{{ url_for('main.index') }}" class="btn btn-raised btn-info">Voltar</a>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block app_content %}
+  <script>
+    $(document).ready(function() {
+      $('#calendario').fullCalendar({
+        locale: "pt",
+        header: {
+             right: 'prev,next today',
+             center: 'title',
+             left: 'month,agendaWeek,agendaDay'
+        },
+        eventColor: '#03a9f4',
+        eventTextColor: 'white',
+        contentHeight: 'auto',
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        selectHelper: true,
+        eventLimit: true, //para aparecer o link "mais"
+        buttonText: {
+          month:    'Vista mensal',
+          agendaWeek: 'Vista semanal',
+          agendaDay: 'Vista por dia'
+        },
+        events: {
+          url: 'eventos',
+          error: function() {
+            $('#erro').show();
+          }
+        },
+        loading: function(bool) {
+          $('#carregamento').toggle(bool);
+        },
+        eventRender: function eventRender( event, element, view ) {
+            //HARDCODE
+          if (event.categoria_nome.substring(0, 3) == "Tra") {
+            title = "1";
+          } else if (event.categoria_nome.substring(0, 3) == "Hig") {
+            title = "2";
+          }
+          return ['all', title].indexOf($('#categoria_tarefa').val()) >= 0;
+        }
+      });
+      $('#categoria_tarefa').on('change',function(){
+        $('#calendario').fullCalendar('rerenderEvents');
+      });
+    });
+  </script>
+
+  <a class="btn btn-info btn-raised" href="{{ url_for('main.index') }}">Voltar</a>
+  <br>
+
+  <div id='erro' role="alert" class = "alert alert-warning bg-warning text-white">
+    <i class="fas fa-exclamation-circle"></i> Erro ao obter tarefas do "terminal" <code class = "text-white">/eventos</code>.
+  </div>
+
+  <div class="alert alert-info bg-info text-white" role="alert" id="carregamento">
+    <i class="fas fa-info-circle"></i> Carregando... Aguarde.
+  </div>
+
+  <div id="search">{% include 'search.html' %}</div>
+  <div id="info_equipa">{% include 'info_equipa.html' %}</div>
+    <h1 class="text-center">{{title}}</h1>
+
+  <div class="form-group">
+    <label for="categoria_tarefa" class = "label">Filtrar por categoria</label>
+    <select class="form-control" id="categoria_tarefa" name="categoria_tarefa">
+      <option value="all">Todas</option>
+        {% for categoria_tarefa in lista_categorias_tarefa %}
+            <option value="{{categoria_tarefa['id']}}">{{categoria_tarefa['nome']}}</option>
+        {% endfor %}
+    </select>
+  </div>
+
+  <div id='calendario'></div>
+  <br>
+  <a class="btn btn-info btn-raised" href="{{ url_for('main.index') }}">Voltar</a>
+
+{% endblock %}

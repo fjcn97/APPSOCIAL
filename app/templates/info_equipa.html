@@ -1,0 +1,10 @@
+{% if user.nivel_de_acesso == 'Monitor' %}
+	<div class="alert alert-info bg-info text-white" role="alert"><i class="fas fa-info-circle"></i> Equipa(s): {% if user_equipas %}
+		{% for user_equipa in user_equipas %}
+			{{ user_equipa['equipa'] }}
+		{% endfor %}<br>
+		{% else %}-<br>
+		{% endif %}
+		Categoria: {{user.categoria}}
+	</div>
+{% endif %}

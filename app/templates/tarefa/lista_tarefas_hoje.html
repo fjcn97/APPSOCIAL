@@ -1,0 +1,58 @@
+<!-- Inicialmente, a tabela foi personalizada com Bootstrap. O fundo azul do cabeçalho da tabela tinha sido feito com tags próprias da linguagem. Contudo, quando gerava o ficheiro PDF com o flask_weasyprint, este módulo não reconhecia este fundo. Portanto, esta tabela teve que passar a ser personalizada com W3CSS. Assim, o módulo já gera a tabela com o estilo pretendido. Porém, corta-a à direita... -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style type="text/css">
+    thead {
+        background-color: #03a9f4;
+    }
+</style>
+<table class="w3-table w3-striped w3-border">
+    <thead class="w3-centered w3-text-white">
+        <tr>
+            <th>
+                Título
+            </th>
+            <th>
+                Tarifa
+            </th>
+            <th>
+                Preço (€)
+            </th>
+            <th>
+                Duração esperada (HH:MM)
+            </th>
+            <th>
+                Data de início
+            </th>
+            <th>
+                Hora de início
+            </th>
+            <th>
+                Data de fim
+            </th>
+            <th>
+                Hora de fim
+            </th>
+            <th>
+                Grupo de tarefas
+            </th>
+            <th>
+                Utente
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for tarefa in l_tarefas %}
+        <tr>
+            <td><strong>{{ tarefa['title'] }}</strong></td>
+            {% include 'tarefa/colunas_dados_tarifa_dur_inicio_fim.html' %}
+            <td>
+                {{ tarefa['grupo_tarefas_nome'] }}
+            </td>
+            <td>
+                {{ tarefa['utente'] }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+

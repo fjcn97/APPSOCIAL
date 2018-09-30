@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+    <head>
+        <link rel="stylesheet" type="text/css" href="http://weareoutman.github.io/clockpicker/dist/bootstrap-clockpicker.css">
+        <link rel="stylesheet" type="text/css" href="http://weareoutman.github.io/clockpicker/dist/bootstrap-clockpicker.min.css">
+
+        <link rel="stylesheet" type="text/css" href="http://weareoutman.github.io/clockpicker/src/clockpicker.css">
+        <link rel="stylesheet" type="text/css" href="http://weareoutman.github.io/clockpicker/src/standalone.css">
+
+        <script src="http://weareoutman.github.io/clockpicker/dist/bootstrap-clockpicker.js"></script>
+
+        <script src="http://weareoutman.github.io/clockpicker/src/clockpicker.js"></script>
+    </head>
+	{% include 'info_utente.html' %}
+
+	<h1 class="text-center">{{title}}</h1>
+    
+    {% if user == current_user %}
+    <form action="" method="post" onsubmit="return validate();">
+
+    <div class="form-row">
+        <div class="col form-group">
+            <label class="label">Duração esperada (Horas)</label>
+            <!--Reter as horas. Máximo permitido: 999 horas -->
+            <input class="form-control" value ="{{(tarefa_visita.duracao_esperada|split_pelos_2pontos)[0]}}" name = "tempo_medio_horas" id="tempo_medio_horas" type="number" max = "999" min = "0" style="text-align: right;" onchange="get3LastNumbers(this);" onkeyup="if(this.value>999){this.value=999;};get3LastNumbers(this);" onclick="get3LastNumbers(this);">
+        </div>
+        <div class="col form-group">
+            <label class="label">Duração esperada (Minutos)</label>
+            <!--Reter os minutos. Máximo permitido: 59 minutos -->
+            <input class="form-control" value ="{{(tarefa_visita.duracao_esperada|split_pelos_2pontos)[1]}}" name = "tempo_medio_minutos" id="tempo_medio_minutos" type="number" max = "59" min = "0" dir="rtl" style="text-align: left;" onchange="get2LastNumbers(this);" onkeyup="if(this.value>59){this.value=59;};get2LastNumbers(this);" onclick="get2LastNumbers(this);">
+        </div>
+    </div>
+    
+    <div class="form-row">
+        <div class="col form-group">
+            <label for="start" class="label">Data de início (MM/DD/AAAA)</label>
+            <input id = "start" name = "start" type="date" class="form-control" max="9999-12-31" value ="{{tarefa_visita.start}}">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col form-group">
+            <label for="hora_minutos_inicial" class="label">Hora inicial (HH:MM)</label>
+            <div class="input-group clockpicker" data-align="top" data-autoclose="true">
+              <input type="text" class="form-control" name="hora_minutos_inicial" id = "hora_minutos_inicial" onkeydown="return false;" value ="{% if tarefa_visita.hora_minutos_inicial %}{{tarefa_visita.hora_minutos_inicial}}{% endif %}">
+            </div>
+        </div>
+    </div>
+
+    <input class="btn btn-raised btn-info" type="submit" value="Submeter">
+    </form>
+    {% endif %}
+
+	<a href="{{ url_for('utente.ver_ficha_clinica', email=utente.email) }}" class="btn btn-info btn-raised" target="_blank">Ver ficha clínica</a>
+
+    <br>
+    <br>
+    {% if user == current_user %}
+	<a class="btn btn-raised btn-info" href="{{ url_for('tarefa.selecionar_tarefa', user_id=user.id, email=utente.email, id=grupo_tarefas.id) }}">Voltar</a>
+    {% endif %}
+
+    <script type="text/javascript">
+        var today = moment().format("YYYY-MM-DD");
+        document.getElementsByName("start")[0].setAttribute('min', today); 
+
+        $('.clockpicker').clockpicker();
+        
+        function get3LastNumbers(input) {
+            //Impedir que se introduzam mais do que três números
+            if (input.value.length > 3) {
+                input.value = input.value.slice(0,3);
+            }
+        }
+
+        function get2LastNumbers(input) {
+            //Impedir que se introduzam mais do que dois números
+            if (input.value.length > 2) {
+                input.value = input.value.slice(0,2);
+            }
+        }
+
+        function validate() {
+            if (confirm("Pretende submeter?")) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+    </script>
+{% endblock %}

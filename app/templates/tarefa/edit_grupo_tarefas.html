@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+	{% include 'info_utente.html' %}
+
+	<h1 class="text-center">{{title}}</h1>
+
+    {% if user == current_user %}
+    <form action="" method="post" onsubmit="return validate();">
+        <div class="form-group">
+            <label for="nome" class = "label">Nome (*)</label>
+            <input type="text" class="form-control" id="nome" name="nome" value="{{grupo_tarefas.nome}}" maxlength="40" required>
+        </div>
+        <div class="form-group">
+            <label for="descricao" class = "label">Descrição</label>
+            <input type="text" class="form-control" id="descricao" name="descricao" value="{{grupo_tarefas.descricao}}" maxlength="64">
+        </div>
+        <input type="submit" class="btn btn-raised btn-info" value="Guardar alterações" />
+    </form>
+    {% endif %}
+
+    <a href="{{ url_for('tarefa.selecionar_tarefa', user_id=user.id, email=utente.email,id=grupo_tarefas.id) }}" class="btn btn-info btn-raised">Selecionar tarefa</a>
+    <a href="{{ url_for('utente.ver_ficha_clinica', email=utente.email) }}" class="btn btn-info btn-raised" target="_blank">Ver ficha clínica</a>
+    <br>
+    <br>
+    <p>Duração total esperada: {{duracao_total}}</p>
+    <p>Data da primeira tarefa a ser executada: {% if l_datas_inicio == [] %}Sem data{% else %} {{l_datas_inicio[0]}} {% endif %}</p>
+    <p>Data da última tarefa a ser executada: {% if l_datas_fim == [] %}Sem data{% else %} {{l_datas_fim[-1]}} {% endif %}</p>
+    <p>Preço total: € {{ preco_total }}</p>
+    
+    {% if user == current_user %}
+	<a href="{{ url_for('tarefa.selecionar_grupo_tarefas', user_id=user.id, email=utente.email) }}" class="btn btn-info btn-raised">Voltar</a>
+    {% endif %}
+
+    <script type="text/javascript">
+        function validate() {
+            var nome = $("#nome").val();
+
+            if ($.trim(nome) === '') {
+                alert("Introduza o nome.");
+                return false;
+            } else {
+                if (confirm("Pretende submeter?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+	</script>
+{% endblock %}

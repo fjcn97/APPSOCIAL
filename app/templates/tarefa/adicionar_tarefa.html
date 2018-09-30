@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1 class="text-center">{{title}}</h1>
+
+    <form action="" method="post" onsubmit="return validate();">
+        <div class="form-group">
+            <label for="nome" class = "label">Nome (*)</label>
+            <input type="text" class="form-control" id="nome" name="nome" placeholder="Ida a consulta / tratamento médico" onkeydown="Check(event);" onkeyup="Check(event);" maxlength="100" required>
+        </div>
+
+        <div class="form-group">
+            <label for="categoria_tarefa" class = "label">Categoria (*)</label>
+            <select class="form-control" id="categoria_tarefa" name="categoria_tarefa">
+                {% for categoria_tarefa in lista_categorias_tarefa %}
+                    <option value="{{categoria_tarefa['id']}}">{{categoria_tarefa['nome']}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="tarifa" class = "label">Tarifa (*)</label>
+            <select class="form-control" id="tarifa" name="tarifa">
+                    <option>Fixa</option>
+                    <option>Horária</option>
+            </select>
+        </div>
+        
+        <input type="submit" class="btn btn-raised btn-info" value="Adicionar tarefa">
+    </form>
+
+    <p> * Campo obrigatório </p>
+    <a class="btn btn-info btn-raised" href="{{ url_for('main.index') }}">Voltar</a>
+
+    <script type="text/javascript">
+        //Impede que se insiram números no nome
+        function Check(event) {
+            var keyCode = (event.keyCode ? event.keyCode : event.which);
+            if (keyCode > 47 && keyCode < 58) {
+                event.preventDefault();
+            }
+        };
+        
+        function validate() {
+            var nome = $("#nome").val();
+
+            if ($.trim(nome) === '') {
+                alert("Introduza o nome da tarefa.");
+                return false;
+            } else {
+                if (confirm("Pretende submeter?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+	</script>
+{% endblock %}
