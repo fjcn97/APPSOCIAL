@@ -56,3 +56,9 @@ Para criar um requirements.txt: pip3 freeze > requirements.txt
 	Considerei que a duração esperada difere entre cada tarefa-base do mesmo grupo, para, depois, aparecer o seu tempo total, através da soma de todas as durações esperadas.
 	Independentemente do escalão, há tarefas-base cuja tarifa é sempre fixa e outras cuja tarifa é sempre horária.
 	Assim, se todas as tarefas de um mesmo grupo tiverem tarifa fixa, o preço total é a soma dos seus preços (não esquecendo que cada um destes varia consoante o escalão do utente).
+	
+![appsocial_index](https://user-images.githubusercontent.com/36827489/46261525-aab33f80-c4ec-11e8-8608-3761ee974697.png)
+![appsocial_novo_grupo_tarefas](https://user-images.githubusercontent.com/36827489/46261526-ab4bd600-c4ec-11e8-9c25-952b5fadde6e.png)
+![appsocial_tarefas_hoje](https://user-images.githubusercontent.com/36827489/46261527-ab4bd600-c4ec-11e8-885d-baa5712542c6.png)
+![appsocial_calendario](https://user-images.githubusercontent.com/36827489/46261528-ab4bd600-c4ec-11e8-9c6e-f4a30fae0fb6.png)
+
